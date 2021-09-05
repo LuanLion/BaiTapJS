@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var viewEngine= require('./config/viewEngine');
 var initWebRoutes= require('./route/web');
-var connectDB=require('./config/connectDB');
+var sequelize=require('./config/connectDB');
 
 // import bodyParser from "body-parser";// get the paramenters form client for server
 // import viewEngine from "./config/viewEngine";
@@ -19,7 +19,8 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 viewEngine(app);
 initWebRoutes(app);
-connectDB();
+sequelize;
+    
 
 let port= process.env.PORT || 3000;//if port = undefine then port=3000
 

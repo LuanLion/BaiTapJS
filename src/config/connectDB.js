@@ -17,10 +17,16 @@ const sequelize = new Sequelize('db', 'root', null, {
 // }
 
 // module.exports = connectDB;
-let connectDB=()=>{
-  sequelize.authenticate()
-  .then(()=>console.log("ket noi thanh cong"));
+// let connectDB=()=>{
+//   try{
+//     sequelize.authenticate()
+//   .then(()=>console.log("ket noi thanh cong"));
 
-}
-
-module.exports=connectDB;
+//   }catch(e){
+//     console.log(e)
+//   }
+  
+// }
+sequelize.authenticate()
+  .then(()=>console.log('ket noi thanh cong'))
+module.exports=sequelize;

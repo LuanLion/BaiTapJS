@@ -13,7 +13,8 @@ let initWebRoutes=(app)=>{
         return res.send("hello world, i am luanMaster");
     })
     router.get("/home",Home.getHomePage);
-    router.post("/Post-CRUD",Home.postCRUD);
+    router.get("/post",Home.postCRUD);
+    router.post("/post-file",Home.postfile);
 
 
     return app.use("/",router);// funcion with return the routers define above
