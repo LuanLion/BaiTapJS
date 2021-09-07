@@ -15,8 +15,7 @@ let initWebRoutes=(app)=>{
     router.get("/home",Home.getHomePage);
     router.get("/post",Home.postCRUD);
     router.post("/post-file",Home.postfile);
-
-
+    router.get("/all",Home.getfinall);
     return app.use("/",router);// funcion with return the routers define above
 
 }

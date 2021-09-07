@@ -32,12 +32,27 @@ let hashUserPassword =(password)=>{
             let hash = await bcrypt.hashSync(password, salt);
             resolve(hash);
         }catch(e){
-            reject
+            reject(e);
         }
 
     
     })
 }
+let getfinall=()=>{
+    return new Promise(async(resolve,reject)=>{
+       
+        try{
+          let users= User.findAll({
+              raw:true
+          })
+                resolve(users);
+            
+        }catch(e){
+            reject(e);
+        }
+    })
+}
 module.exports={
-    createNewUser:createNewUser
+    createNewUser:createNewUser,
+    getfinall:getfinall
 }

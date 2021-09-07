@@ -15,8 +15,16 @@ let postfile=async(req,res)=>{
     console.log(message)
     return res.render('HomePage.ejs')
 }
+let getfinall=async(req,res)=>{
+    let finall= await CRUDservice.getfinall();
+    console.log(finall)
+    return res.render('displayCRUD.ejs',{
+        dataTable:finall
+    })
+}
 module.exports ={
     getHomePage:getHomePage,
     postCRUD:postCRUD,
-    postfile:postfile
+    postfile:postfile,
+    getfinall:getfinall
 }
