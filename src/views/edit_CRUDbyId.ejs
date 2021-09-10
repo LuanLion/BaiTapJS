@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>edit User</title>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body><div class="container">
+  <form action='put_userById' method="POST" >
+
+    <div class="form-name">edit information user</div>
+    <!-- ID -->
+    <div class="form-group">
+      <input type="text" style="color: blueviolet;" class="form-control" name="id"
+      value="<%=dataTable.id%>"
+       hidden>
+    </div>
+    <div class="form-group">
+      <label for="inputAddress">Firstname</label>
+      <input type="text" style="color: blueviolet;" class="form-control" name="firstname"
+      value="<%=dataTable.firstName%>"
+       placeholder="fisrt name">
+    </div>
+    <!-- -->
+    <div class="form-group">
+      <label for="inputAddress2">Lastname</label>
+      <input type="text" class="form-control" name="lastname" 
+      style="color: blueviolet;"
+      value="<%=dataTable.lastName%>"
+      placeholder="last name">
+    </div>
+    <div class="form-group">
+      <label for="inputAddress2">Address</label>
+      <input type="text" class="form-control" name="address"
+      style="color: blueviolet;"
+      value="<%=dataTable.address%>" placeholder="Can Tho St">
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputCity">phonenumber</label>
+        <input type="text" class="form-control" name="phonenumber"
+        style="color: blueviolet;"
+      value="<%=dataTable.phonenumber%>">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputState">gender</label>
+        <select name="gander" class="form-control"
+        style="color: blueviolet;"
+      value="<%=dataTable.gender%>">
+          <option selected value="1">malde</option>
+          <option value="2">fmalde</option>
+        </select>
+      </div>
+      <div class="form-group col-md-2">
+        <label for="inputZip">Role</label>
+        <select name="roleId" class="form-control"
+        style="color: blueviolet;"
+      value="<%=dataTable.roleId%>">
+          <option selected value="doctor">doctor</option>
+          <option value="patient">patient</option>
+        </select>
+      </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Update</button>
+  </form>
+</div>
+    
+</body>
+</html>

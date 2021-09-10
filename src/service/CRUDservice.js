@@ -52,7 +52,81 @@ let getfinall=()=>{
         }
     })
 }
+let editCRUD=(userId)=>{
+    return new Promise(async(resolve,reject)=>{
+        try{
+            let user= await User.findOne({
+                where:{id:userId},
+                raw:true
+            })
+            if(user){
+                resolve(user)
+            }
+            else{
+                resolve("?????")
+            
+            }
+        }catch(e){
+            reject(e)
+        }
+    })
+}
+let edited_userById=(data)=>{
+    return new Promise(async(resolve,reject)=>{
+       
+        try{
+            let user= await User.findOne({
+                where:{id:data.id}
+            })
+            if(user){
+                user.firstName=data.firstname;
+                user.lastName=data.lastname;
+                user.address=data.address;
+                user.gander=data.gender;
+                user.roleId=data.roleId;
+                await user.save();
+                let alluser = await User.findAll();
+                resolve(alluser);
+              
+            }else{
+                resolve()
+            }
+
+            
+        }catch(e){
+            reject(e);
+        }
+    })
+}
+let delete_CRUDbyId=(data)=>{
+    return new Promise(async(resolve,reject)=>{
+       
+        try{
+            let user= await User.findOne({
+                where:{id:data.id}
+            })
+            if(user){
+              
+                await user.destroy();
+                let alluser = await User.findAll();
+                resolve(alluser);
+              
+            }else{
+                resolve()
+            }
+
+            
+        }catch(e){
+            reject(e);
+        }
+    })
+
+}
 module.exports={
     createNewUser:createNewUser,
-    getfinall:getfinall
+    getfinall:getfinall,
+    editCRUD:editCRUD,
+    edited_userById:edited_userById,
+    delete_CRUDbyId:delete_CRUDbyId
+
 }
