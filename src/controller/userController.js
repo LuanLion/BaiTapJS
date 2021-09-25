@@ -1,13 +1,14 @@
 import userservice from "../service/userservice";
 var User = require("../models/user");
-let handleLogin = async (req, res) => {
-  let email = req.query.email;
-  let password = req.query.password;
+
+let handleLoginApi = async (req, res) => {
+  let email = req.body.email;
+  let password = req.body.password;
 
   if (!email || !password) {
     return res.status(500).json({
       errcode: 1,
-      message: "missing inputs parmeter",
+      message: "username and password error",
       user: userData.user,
     });
   }
@@ -21,5 +22,5 @@ let handleLogin = async (req, res) => {
 };
 
 module.exports = {
-  handleLogin: handleLogin,
+  handleLoginApi: handleLoginApi,
 };

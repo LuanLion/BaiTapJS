@@ -22,15 +22,15 @@ let handleUserLogin = (email, password) => {
             userData.user = user;
           } else {
             userData.errcode = 4;
-            userData.message = "password compere fasle";
+            userData.message = "Password error";
           }
         } else {
           userData.errcode = 3;
-          userData.message = "Email none or password none ";
+          userData.message = "User none or username error";
         }
       } else {
         userData.errcode = 2;
-        userData.message = "Email none or password none";
+        userData.message = "Email error";
       }
       resolve(userData);
     } catch (e) {
