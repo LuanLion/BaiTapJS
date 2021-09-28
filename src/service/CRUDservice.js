@@ -107,6 +107,7 @@ module.exports = {
   createNewUser: createNewUser,
   getfinall: getfinall,
   editCRUD: editCRUD,
+  hashUserPassword: hashUserPassword,
   edited_userById: edited_userById,
   delete_CRUDbyId: delete_CRUDbyId,
 };
