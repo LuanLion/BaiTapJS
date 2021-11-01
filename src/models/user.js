@@ -1,47 +1,43 @@
-
-const { Sequelize, DataTypes } = require('sequelize');
-const db = require('../config/connectDB');
-
-const User = db.define('User', {
-  id:{
-    type:DataTypes.INTEGER,
-    autoIncrement:true,
-    allowNull:false,
-    primaryKey:true
-
-},
-email:DataTypes.STRING,
-password:{
-  type:DataTypes.STRING,
-  allowNull:false
-},
-firstName: {
-  type: DataTypes.STRING,
-  allowNull: false
-},
-lastName: {
-  type: DataTypes.STRING
-  // allowNull defaults to true
-}, 
-address:DataTypes.STRING,
-gender:DataTypes.BOOLEAN,
-roleId:DataTypes.STRING,
-phonenumber:DataTypes.STRING,
-positionId:DataTypes.STRING,
-image:DataTypes.STRING
-}
-
-);
-db.sync();//create table user 
-// module.exports=class Products{
-//   constructor(){
-
-//   }
-//   static FetchAll(){
-//     return new Promise((resolve,reject)=>{
-//       product.findAll({raw:true})
-//               .then(listProducts=> resolve(listProducts))
-//     });
-//   }
-// }
-module.exports= User;
+"use strict";
+const { Model } = require("sequelize");
+module.exports = (sequelize, Sequelize) => {
+  class User extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+      this.belongsTo(models.Allcode, {
+        foreignKey: "positionId",
+        targetKey: "keyMap",
+        as: "positionData",
+      });
+      this.belongsTo(models.Allcode, {
+        foreignKey: "gender",
+        targetKey: "keyMap",
+        as: "genderData",
+      });
+    }
+  }
+  User.init(
+    {
+      email: Sequelize.STRING,
+      password: Sequelize.STRING,
+      firstName: Sequelize.STRING,
+      lastName: Sequelize.STRING,
+      address: Sequelize.STRING,
+      gender: Sequelize.STRING,
+      roleId: Sequelize.STRING,
+      phonenumber: Sequelize.STRING,
+      positionId: Sequelize.STRING,
+      image: Sequelize.STRING,
+    },
+    {
+      sequelize,
+      modelName: "User",
+    }
+  );
+  return User;
+};

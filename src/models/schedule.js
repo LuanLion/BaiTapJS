@@ -1,49 +1,30 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const db = require('../config/connectDB');
-
-const schedule = db.define('schedules', {
-  // Model attributes are defined here
-  id:{
-      type:DataTypes.INTEGER,
-      autoIncrement:true,
-      allowNull:false,
-      primaryKey:true
-
-  },
-  
-  cunrrentNumber:{
-    type:DataTypes.INTEGER,
-    allowNull:false
-  },
-  maxNumber :{
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  date: {
-    type: DataTypes.DATE
-    // allowNull defaults to true
-  }, 
-  timeType: {
-    type: DataTypes.STRING
-    // allowNull defaults to true
-  }, 
-  doctorId:{
-      type:DataTypes.INTEGER
+"use strict";
+const { Model } = require("sequelize");
+module.exports = (sequelize, Sequelize) => {
+  class Schedule extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
   }
- 
-}
-
-);
-db.sync();//create table user 
-// module.exports=class Products{
-//   constructor(){
-
-//   }
-//   static FetchAll(){
-//     return new Promise((resolve,reject)=>{
-//       product.findAll({raw:true})
-//               .then(listProducts=> resolve(listProducts))
-//     });
-//   }
-// }
-module.exports= schedule;
+  Schedule.init(
+    {
+      cunrrentNumber: Sequelize.INTEGER,
+      maxNumber: Sequelize.INTEGER,
+      date: Sequelize.DATE,
+      // allowNull defaults to true
+      timeType: Sequelize.STRING,
+      // allowNull defaults to true
+      doctorId: Sequelize.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "Schedule",
+    }
+  );
+  return Schedule;
+};

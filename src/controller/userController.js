@@ -28,14 +28,14 @@ let handlegetAlluser = async (req, res) => {
       errcode: 1,
       message: "id error",
     });
+  } else {
+    let users = await userservice.getAlluser(id);
+    return res.status(200).json({
+      errcode: 0,
+      message: "true",
+      users,
+    });
   }
-
-  let users = await userservice.getAlluser(id);
-  return res.status(200).json({
-    errcode: 0,
-    message: "true",
-    users,
-  });
 };
 let handlecreateOneuser = async (req, res) => {
   let data = req.body;
@@ -45,15 +45,53 @@ let handlecreateOneuser = async (req, res) => {
       errcode: 1,
       message: "request connection failed",
     });
+  } else {
+    let users = await userservice.createOneuser(data);
+    return res.status(200).json(users);
   }
-  let usertable = await userservice.createOneuser(data);
-  return res.status(200).json({
-    usertable,
-  });
 };
 
+let handledeleteOneuser = async (req, res) => {
+  let userId = req.query.id;
+  if (!userId) {
+    return res.status(200).json({
+      errcode: 1,
+      message: "request connection failed",
+    });
+  }
+  let deleteuser = await userservice.deleteOneuser(userId);
+  return res.status(200).json({
+    deleteuser,
+  });
+};
+let handleupdateOneuser = async (req, res) => {
+  let newuser = req.body;
+  if (!newuser) {
+    return res.status(200).json({
+      errcode: 1,
+      message: "request connection failed",
+    });
+  }
+  let updateuser = await userservice.updateOneuser(newuser);
+  return res.status(200).json(updateuser);
+};
+let handlegetAllcode = async (req, res) => {
+  try {
+    let data = await userservice.getAllcode(req.query.type);
+    return res.status(200).json(data);
+  } catch (e) {
+    return res.status(200).json({
+      errcode: 1,
+      message: "request connection failed",
+    });
+  }
+};
 module.exports = {
   handleLoginApi: handleLoginApi,
   handlegetAlluser: handlegetAlluser,
   handlecreateOneuser: handlecreateOneuser,
+  //
+  handledeleteOneuser: handledeleteOneuser,
+  handleupdateOneuser: handleupdateOneuser,
+  handlegetAllcode: handlegetAllcode,
 };

@@ -1,9 +1,9 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require("sequelize");
 
 // Option 2: Passing parameters separately (other dialects)
-const sequelize = new Sequelize('db', 'root', null, {
-  host: 'localhost',
-  dialect: 'mysql'
+const sequelize = new Sequelize("luandb", "root", null, {
+  host: "localhost",
+  dialect: "mysql",
 });
 
 //check connect db
@@ -25,8 +25,7 @@ const sequelize = new Sequelize('db', 'root', null, {
 //   }catch(e){
 //     console.log(e)
 //   }
-  
+
 // }
-sequelize.authenticate()
-  .then(()=>console.log('ket noi thanh cong'))
-module.exports=sequelize;
+sequelize.authenticate().then(() => console.log("ket noi thanh cong"));
+module.exports = sequelize;

@@ -1,45 +1,27 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const db = require('../config/connectDB');
-
-const Clinics = db.define('Clinics', {
-  // Model attributes are defined here
-  id:{
-      type:DataTypes.INTEGER,
-      autoIncrement:true,
-      allowNull:false,
-      primaryKey:true
-
-  },
-  name:{
-    type:DataTypes.STRING
-  },
-  
-  address:{
-    type:DataTypes.STRING,
-    allowNull:false
-  },
-  description :{
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  image: {
-    type: DataTypes.STRING
-    // allowNull defaults to true
-  }, 
-  
-}
-
-);
-db.sync();//create table user 
-// module.exports=class Products{
-//   constructor(){
-
-//   }
-//   static FetchAll(){
-//     return new Promise((resolve,reject)=>{
-//       product.findAll({raw:true})
-//               .then(listProducts=> resolve(listProducts))
-//     });
-//   }
-// }
-module.exports= Clinics;
+"use strict";
+const { Model } = require("sequelize");
+module.exports = (sequelize, Sequelize) => {
+  class Clinic extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
+  }
+  Clinic.init(
+    {
+      name: Sequelize.STRING,
+      address: Sequelize.STRING,
+      description: Sequelize.STRING,
+      image: Sequelize.STRING,
+    },
+    {
+      sequelize,
+      modelName: "Clinic",
+    }
+  );
+  return Clinic;
+};

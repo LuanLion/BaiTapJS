@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const { sync } = require("../models/user");
-var User = require("../models/user");
+import db from "../models/index";
 
 const salt = bcrypt.genSaltSync(10);
 let CRUDservice = require("./CRUDservice");
@@ -10,7 +10,7 @@ let handleUserLogin = (email, password) => {
       let userData = {};
       let isExist = await checkUserEmail(email);
       if (isExist) {
-        let user = await User.findOne({
+        let user = await db.User.findOne({
           attributes: ["email", "roleId", "password"],
           where: { email: email },
           raw: true,
@@ -44,7 +44,7 @@ let handleUserLogin = (email, password) => {
 let checkUserEmail = (userEmail) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let user = await User.findOne({
+      let user = await db.User.findOne({
         where: { email: userEmail },
         raw: true,
       });
@@ -60,14 +60,14 @@ let getAlluser = (Iduser) => {
     try {
       let user;
       if (Iduser === "All") {
-        user = await User.findAll({
+        user = await db.User.findAll({
           attributes: {
             exclude: ["password"],
           },
         });
       }
       if (Iduser && Iduser !== "All") {
-        user = await User.findOne({
+        user = await db.User.findOne({
           where: { id: Iduser },
         });
       }
@@ -88,17 +88,17 @@ let createOneuser = (data) => {
         });
       } else {
         let haspassword = await CRUDservice.hashUserPassword(data.password);
-        await User.create({
+        await db.User.create({
           email: data.email,
           password: haspassword,
-          firstName: data.firstname,
-          lastName: data.lastname,
+          firstName: data.firstName,
+          lastName: data.lastName,
           address: data.address,
-          gender: data.gender === "1" ? true : false,
+          gender: data.gender,
           roleId: data.roleId,
           phonenumber: data.phonenumber,
-          positionId: null,
-          image: null,
+          positionId: data.positionId,
+          image: data.image,
         });
         resolve({
           errcode: 0,
@@ -110,8 +110,101 @@ let createOneuser = (data) => {
     }
   });
 };
+let deleteOneuser = (idData) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = await db.User.findOne({
+        where: { id: idData },
+      });
+      if (user) {
+        await user.destroy();
+        resolve({
+          errcode: 0,
+          message: "delete user success",
+        });
+      } else {
+        resolve({
+          errcode: 1,
+          message: "delete user faild",
+        });
+      }
+    } catch (e) {
+      reject({
+        errcode: 1,
+        message: "connect data faild",
+      });
+    }
+  });
+};
+let updateOneuser = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = await db.User.findOne({
+        where: { id: data.id },
+      });
+      let check = await checkUserEmail(data.email);
+      if (check === true) {
+        resolve({
+          errcode: 1,
+          message: "email non-existent",
+        });
+      }
+      if (user && check === false) {
+        user.email = data.email;
+        user.firstName = data.firstname;
+        user.lastName = data.lastname;
+        user.address = data.address;
+        user.gander = data.gender;
+        user.roleId = data.roleId;
+        user.positionId = data.positionId;
+        user.image = data.image;
+        await user.save();
+
+        resolve({
+          errcode: 0,
+          message: "Update user success",
+        });
+      } else {
+        resolve({
+          errcode: 1,
+          message: "Update user faild",
+        });
+      }
+    } catch (e) {
+      reject({
+        errcode: 1,
+        message: "connect update faild",
+      });
+    }
+  });
+};
+let getAllcode = (type) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (type) {
+        let res = {};
+        allcode = await db.Allcode.findAll({
+          where: { type: type },
+        });
+        res.errcode = 0;
+        res.data = allcode;
+        resolve(res);
+      } else {
+        resolve({
+          errcode: 1,
+          message: "missing required ",
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   handleUserLogin: handleUserLogin,
   getAlluser: getAlluser,
   createOneuser: createOneuser,
+  deleteOneuser: deleteOneuser,
+  updateOneuser: updateOneuser,
+  getAllcode: getAllcode,
 };

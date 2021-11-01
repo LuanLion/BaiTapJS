@@ -1,6 +1,7 @@
 var express = require("express");
 var Home = require("../controller/Home");
 var userController = require("../controller/userController");
+var doctorController = require("../controller/doctorController");
 
 // import Home from"../controller/Home";
 
@@ -23,6 +24,11 @@ let initWebRoutes = (app) => {
   router.post("/api/login", userController.handleLoginApi);
   router.get("/api/get_All_user", userController.handlegetAlluser);
   router.post("/api/create_One_user", userController.handlecreateOneuser);
+  router.get("/api/delete_One_user", userController.handledeleteOneuser);
+  router.post("/api/update_One_user", userController.handleupdateOneuser);
+  router.get("/api/allcode", userController.handlegetAllcode);
+  // // informations doctor
+  // router.get("/api/top_doctor", doctorController.handleTOPdoctor);
   return app.use("/", router); // funcion with return the routers define above
 };
 

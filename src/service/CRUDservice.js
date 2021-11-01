@@ -1,11 +1,12 @@
 const bcrypt = require("bcryptjs");
 var User = require("../models/user");
 const salt = bcrypt.genSaltSync(10);
+import db from "../models/index";
 let createNewUser = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       let haspassword = await hashUserPassword(data.password);
-      await User.create({
+      await db.User.create({
         email: data.email,
         password: haspassword,
         firstName: data.firstname,
@@ -36,7 +37,7 @@ let hashUserPassword = (password) => {
 let getfinall = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      let users = User.findAll({
+      let users = db.User.findAll({
         raw: true,
       });
       resolve(users);
@@ -48,7 +49,7 @@ let getfinall = () => {
 let editCRUD = (userId) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let user = await User.findOne({
+      let user = await db.User.findOne({
         where: { id: userId },
         raw: true,
       });
@@ -65,7 +66,7 @@ let editCRUD = (userId) => {
 let edited_userById = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let user = await User.findOne({
+      let user = await db.User.findOne({
         where: { id: data.id },
       });
       if (user) {
@@ -75,7 +76,7 @@ let edited_userById = (data) => {
         user.gander = data.gender;
         user.roleId = data.roleId;
         await user.save();
-        let alluser = await User.findAll();
+        let alluser = await db.User.findAll();
         resolve(alluser);
       } else {
         resolve();
@@ -88,12 +89,12 @@ let edited_userById = (data) => {
 let delete_CRUDbyId = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let user = await User.findOne({
+      let user = await db.User.findOne({
         where: { id: data.id },
       });
       if (user) {
         await user.destroy();
-        let alluser = await User.findAll();
+        let alluser = await db.User.findAll();
         resolve(alluser);
       } else {
         resolve();
