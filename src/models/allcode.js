@@ -1,6 +1,7 @@
 "use strict";
 const { Model, Sequelize } = require("sequelize");
-import luandb from "../config/connectDB";
+import db from "./index";
+
 module.exports = (sequelize, Sequelize) => {
   class Allcode extends Model {
     /**
@@ -10,17 +11,14 @@ module.exports = (sequelize, Sequelize) => {
      */
     static associate(models) {
       // define association here
-
-      this.hasMany(models.User, {
-        foreignKey: "positionId",
-        as: "positionData",
-        instanceof: false,
-      });
-      this.hasMany(models.User, {
-        foreignKey: "gender",
-        as: "genderData",
-        instanceof: false,
-      });
+      // db.Allcode.hasMany(models.User, {
+      //   foreignKey: "positionId",
+      //   as: "positionData",
+      // });
+      // db.Allcode.hasMany(models.User, {
+      //   foreignKey: "gender",
+      //   as: "genderData",
+      // });
     }
   }
   Allcode.init(
@@ -35,5 +33,6 @@ module.exports = (sequelize, Sequelize) => {
       modelName: "Allcode",
     }
   );
+
   return Allcode;
 };

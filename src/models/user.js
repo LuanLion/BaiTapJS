@@ -1,5 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
+import db from "../config/connectDB";
+
 module.exports = (sequelize, Sequelize) => {
   class User extends Model {
     /**
@@ -9,16 +11,16 @@ module.exports = (sequelize, Sequelize) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.Allcode, {
-        foreignKey: "positionId",
-        targetKey: "keyMap",
-        as: "positionData",
-      });
-      this.belongsTo(models.Allcode, {
-        foreignKey: "gender",
-        targetKey: "keyMap",
-        as: "genderData",
-      });
+      // User.belongsTo(models.Allcode, {
+      //   foreignKey: "positionId",
+      //   targetKey: "keyMap",
+      //   as: "positionData",
+      // });
+      // User.belongsTo(models.Allcode, {
+      //   foreignKey: "gender",
+      //   targetKey: "keyMap",
+      //   as: "genderData",
+      // });
     }
   }
   User.init(
@@ -39,5 +41,6 @@ module.exports = (sequelize, Sequelize) => {
       modelName: "User",
     }
   );
+
   return User;
 };

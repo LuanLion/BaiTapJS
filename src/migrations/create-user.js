@@ -1,5 +1,5 @@
 "use strict";
-
+import luandb from "../config/connectDB";
 const { Sequelize } = require("sequelize");
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -38,6 +38,7 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
+    luandb.sync();
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable("Users");

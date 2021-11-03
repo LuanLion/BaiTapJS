@@ -29,12 +29,8 @@ let handlegetAlluser = async (req, res) => {
       message: "id error",
     });
   } else {
-    let users = await userservice.getAlluser(id);
-    return res.status(200).json({
-      errcode: 0,
-      message: "true",
-      users,
-    });
+    let data = await userservice.getAlluser(id);
+    return res.status(200).json(data);
   }
 };
 let handlecreateOneuser = async (req, res) => {
@@ -82,7 +78,7 @@ let handlegetAllcode = async (req, res) => {
   } catch (e) {
     return res.status(200).json({
       errcode: 1,
-      message: "request connection failed",
+      message: "request connection ALLCODE failed: " + e,
     });
   }
 };

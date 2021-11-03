@@ -58,20 +58,24 @@ let checkUserEmail = (userEmail) => {
 let getAlluser = (Iduser) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let user;
+      let users;
       if (Iduser === "All") {
-        user = await db.User.findAll({
+        users = await db.User.findAll({
           attributes: {
             exclude: ["password"],
           },
         });
       }
       if (Iduser && Iduser !== "All") {
-        user = await db.User.findOne({
+        users = await db.User.findOne({
           where: { id: Iduser },
         });
       }
-      resolve(user);
+      resolve({
+        errcode: 0,
+        message: "Al user success",
+        users,
+      });
     } catch (e) {
       reject(e);
     }
@@ -183,7 +187,7 @@ let getAllcode = (type) => {
     try {
       if (type) {
         let res = {};
-        allcode = await db.Allcode.findAll({
+        let allcode = await db.Allcode.findAll({
           where: { type: type },
         });
         res.errcode = 0;

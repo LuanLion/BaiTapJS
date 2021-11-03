@@ -1,11 +1,11 @@
 import doctorservice from "../service/doctorservice";
 
 let handleTOPdoctor = async (req, res) => {
-  let limit = req.query.limit;
-  if (!limit) limit = 10;
   try {
-    let doctor = await doctorservice.getTOPdoctor(+limit);
-    return res.status(200).json(doctor);
+    let limit = req.query.limit;
+    if (!limit) limit = 10;
+    let data = await doctorservice.getTOPdoctor(+limit);
+    return res.status(200).json(data);
   } catch (e) {
     return res.status(200).json({
       errcode: 1,

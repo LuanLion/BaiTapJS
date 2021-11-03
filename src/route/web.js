@@ -28,7 +28,7 @@ let initWebRoutes = (app) => {
   router.post("/api/update_One_user", userController.handleupdateOneuser);
   router.get("/api/allcode", userController.handlegetAllcode);
   // // informations doctor
-  // router.get("/api/top_doctor", doctorController.handleTOPdoctor);
+  router.get("/api/top_doctor", doctorController.handleTOPdoctor);
   return app.use("/", router); // funcion with return the routers define above
 };
 
