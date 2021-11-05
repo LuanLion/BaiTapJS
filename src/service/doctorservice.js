@@ -37,6 +37,34 @@ let getTOPdoctor = (limitInput) => {
     }
   });
 };
+let getAlldoctor = (idDoctor) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let doctor;
+      if (idDoctor === "All") {
+        doctor = await db.User.findAll({
+          where: { roleId: "R2" },
+          attributes: {
+            exclude: ["password"],
+          },
+        });
+      }
+      if (idDoctor && idDoctor !== "All") {
+        doctor = await db.User.findOne({
+          where: { id: idDoctor },
+        });
+      }
+      resolve({
+        errcode: 0,
+        message: "information doctor success",
+        doctor,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   getTOPdoctor: getTOPdoctor,
+  getAlldoctor: getAlldoctor,
 };
