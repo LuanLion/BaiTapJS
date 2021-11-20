@@ -44,9 +44,12 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 db.User = require("./user")(sequelize, Sequelize.DataTypes);
 db.Allcode = require("./allcode")(sequelize, Sequelize.DataTypes);
+db.Detail = require("./detail")(sequelize, Sequelize.DataTypes);
+db.Schedule = require("./schedule")(sequelize, Sequelize.DataTypes);
 db.sequelize.sync().then(() => {
   console.log("yes re-sync");
 });
+// assosiation doctor with position
 db.Allcode.hasMany(db.User, {
   foreignKey: "positionId",
   as: "positionData",
@@ -64,6 +67,24 @@ db.User.belongsTo(db.Allcode, {
   foreignKey: "gender",
   targetKey: "keyMap",
   as: "genderData",
+});
+// assosiation doctor with detail
+
+db.Detail.belongsTo(db.User, {
+  foreignKey: "doctorId",
+});
+db.User.hasOne(db.Detail, {
+  foreignKey: "doctorId",
+});
+// assosiation Allcode with schedule
+db.Allcode.hasMany(db.Schedule, {
+  foreignKey: "timeType",
+  as: "timeTypeData",
+});
+db.Schedule.belongsTo(db.Allcode, {
+  foreignKey: "timeType",
+  targetKey: "keyMap",
+  as: "timeTypeData",
 });
 
 module.exports = db;

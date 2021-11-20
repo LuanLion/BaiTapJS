@@ -29,11 +29,19 @@ let initWebRoutes = (app) => {
   router.get("/api/delete_One_user", userController.handledeleteOneuser);
   router.post("/api/update_One_user", userController.handleupdateOneuser);
   router.get("/api/allcode", userController.handlegetAllcode);
+
   // // API doctor
   router.get("/api/top_doctor", doctorController.handleTOPdoctor);
   router.get("/api/get_All_doctor", doctorController.handlegetAlldoctor);
+  router.post("/api/save_Info_doctor", doctorController.handleSaveInfodoctor);
+  router.get("/api/get_Info_doctor", doctorController.handlegetInfodoctor);
+  router.post(
+    "/api/save_Schedule_doctor",
+    doctorController.handlesaveScheduledoctor
+  );
 
   return app.use("/", router); // funcion with return the routers define above
 };
+router.get("/api/get_All_Schedule", doctorController.handlegetAllschedule);
 
 module.exports = initWebRoutes;

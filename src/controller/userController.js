@@ -82,6 +82,7 @@ let handlegetAllcode = async (req, res) => {
     });
   }
 };
+
 module.exports = {
   handleLoginApi: handleLoginApi,
   handlegetAlluser: handlegetAlluser,
