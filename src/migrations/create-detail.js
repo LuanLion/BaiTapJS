@@ -26,14 +26,14 @@ module.exports = {
         type: Sequelize.INTEGER,
         // allowNull defaults to true
       },
-      specialtyId: {
-        type: Sequelize.INTEGER,
-        // allowNull defaults to true
-      },
-      clinicId: {
-        type: Sequelize.INTEGER,
-        // allowNull defaults to true
-      },
+      priceId: Sequelize.STRING,
+      provinceId: Sequelize.STRING,
+      paymentId: Sequelize.STRING,
+      addressClinic: Sequelize.STRING,
+      nameClinic: Sequelize.STRING,
+      count: Sequelize.STRING,
+      expert: Sequelize.INTEGER,
+      effective: Sequelize.INTEGER,
 
       createdAt: {
         allowNull: true,

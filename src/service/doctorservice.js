@@ -102,6 +102,14 @@ let saveInfoDoctor = (doctor) => {
           contentMarkdown: doctor.contentMarkdown,
           description: doctor.description,
           doctorId: doctor.doctorId,
+          priceId: doctor.priceId,
+          provinceId: doctor.provinceId,
+          paymentId: doctor.paymentId,
+          addressClinic: doctor.addressClinic,
+          nameClinic: doctor.nameClinic,
+          count: doctor.count,
+          expert: doctor.expert,
+          effective: doctor.effective,
         });
         resolve({
           errcode: 0,
