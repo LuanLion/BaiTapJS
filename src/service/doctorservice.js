@@ -129,7 +129,28 @@ let getInfoDoctor = (idDoctor) => {
         attributes: {
           exclude: ["password"],
         },
-        include: [{ model: db.Detail }],
+        include: [
+          {
+            model: db.Detail,
+            include: [
+              {
+                model: db.Allcode,
+                as: "priceData",
+                attributes: ["valueEn", "valueVi"],
+              },
+              {
+                model: db.Allcode,
+                as: "paymentData",
+                attributes: ["valueEn", "valueVi"],
+              },
+              {
+                model: db.Allcode,
+                as: "provinceData",
+                attributes: ["valueEn", "valueVi"],
+              },
+            ],
+          },
+        ],
         raw: true,
         nest: true,
       });
@@ -152,8 +173,10 @@ let saveScheduleDoctor = (data) => {
           message: "you may select before save",
         });
       }
+      console.log("date: ", schedule[0].date);
       if (schedule && schedule.length > 0) {
         schedule = schedule.map((item) => {
+          item.date = new Date(item.date).getTime();
           item.maxNumber = MAX_NUMBER_SCHEDULE;
           return item;
         });
@@ -166,6 +189,7 @@ let saveScheduleDoctor = (data) => {
       });
 
       if (exsiting && exsiting.length > 0) {
+        console.log("success");
         exsiting = exsiting.map((item) => {
           item.date = new Date(item.date).getTime();
           return item;

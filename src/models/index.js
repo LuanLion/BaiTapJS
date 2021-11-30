@@ -86,5 +86,33 @@ db.Schedule.belongsTo(db.Allcode, {
   targetKey: "keyMap",
   as: "timeTypeData",
 });
+//assosiation detail with allcode
+db.Allcode.hasMany(db.Detail, {
+  foreignKey: "priceId",
+  as: "priceData",
+});
+db.Allcode.hasMany(db.Detail, {
+  foreignKey: "paymentId",
+  as: "paymentData",
+});
+db.Allcode.hasMany(db.Detail, {
+  foreignKey: "provinceId",
+  as: "provinceData",
+});
+db.Detail.belongsTo(db.Allcode, {
+  foreignKey: "priceId",
+  targetKey: "keyMap",
+  as: "priceData",
+});
+db.Detail.belongsTo(db.Allcode, {
+  foreignKey: "provinceId",
+  targetKey: "keyMap",
+  as: "provinceData",
+});
+db.Detail.belongsTo(db.Allcode, {
+  foreignKey: "paymentId",
+  targetKey: "keyMap",
+  as: "paymentData",
+});
 
 module.exports = db;
