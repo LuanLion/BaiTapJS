@@ -1,5 +1,6 @@
 import db from "../models/index";
 require("dotenv").config();
+import emailservice from "./emailservice";
 import _ from "lodash";
 const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
 
@@ -264,6 +265,27 @@ let getAllschedule = (doctorId, date) => {
     }
   });
 };
+let sentBookingemail = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      // if (!data.useDate || !data.useName || !data.useEmail || !data.useTime) {
+      //   resolve({
+      //     errcode: 1,
+      //     message: "fail",
+      //   });
+      // } else {
+      console.log(data);
+      await emailservice.sentBooking(data.userEmail);
+
+      resolve({
+        errcode: 0,
+        data,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   getTOPdoctor: getTOPdoctor,
   getAlldoctor: getAlldoctor,
@@ -271,4 +293,5 @@ module.exports = {
   getInfoDoctor: getInfoDoctor,
   saveScheduleDoctor: saveScheduleDoctor,
   getAllschedule: getAllschedule,
+  sentBookingemail: sentBookingemail,
 };

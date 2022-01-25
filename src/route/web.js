@@ -40,6 +40,9 @@ let initWebRoutes = (app) => {
     doctorController.handlesaveScheduledoctor
   );
 
+  //email
+  router.post("/api/sent_Booking", doctorController.handlesentBooking);
+
   return app.use("/", router); // funcion with return the routers define above
 };
 router.get("/api/get_All_Schedule", doctorController.handlegetAllschedule);

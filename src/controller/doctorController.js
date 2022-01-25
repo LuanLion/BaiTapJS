@@ -114,6 +114,17 @@ let handlegetAllschedule = async (req, res) => {
     });
   }
 };
+let handlesentBooking = async (req, res) => {
+  try {
+    let data = await doctorservice.sentBookingemail(req.body);
+    return res.status(200).json(data);
+  } catch (e) {
+    return res.status(200).json({
+      errcode: 1,
+      message: "request connection failed",
+    });
+  }
+};
 module.exports = {
   handleTOPdoctor: handleTOPdoctor,
   handlegetAlldoctor: handlegetAlldoctor,
@@ -121,4 +132,5 @@ module.exports = {
   handlegetInfodoctor: handlegetInfodoctor,
   handlesaveScheduledoctor: handlesaveScheduledoctor,
   handlegetAllschedule: handlegetAllschedule,
+  handlesentBooking: handlesentBooking,
 };
